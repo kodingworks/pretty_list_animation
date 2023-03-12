@@ -1,0 +1,19 @@
+name: pretty_list_animation
+description: A flutter package that will simplify the creation of animated lists for you, replete with refresh and infiniteLoading, of course.
+version: 1.0.1
+homepage: https://blog.kodingworks.io/
+repository: https://github.com/kodingworks/pretty_list_animation
+
+environment:
+  sdk: '>=2.19.3 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  diffutil_dart: ^3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lints: ^2.0.0
+  test: ^1.21.0
