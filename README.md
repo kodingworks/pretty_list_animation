@@ -40,7 +40,7 @@ A flutter package that will simplify the creation of animated lists for you, rep
 [![flutter][]][web flutter]
 
 [cover]: https://avatars.githubusercontent.com/u/57176505?s=200&v=4
-[output]: assets/example.gif
+[output]: https://raw.githubusercontent.com/kodingworks/pretty_list_animation/master/assets/example.gif
 [flutter]: https://img.shields.io/badge/Platform-Flutter-02569B?logo=flutter
 [web flutter]: https://flutter.dev
 [github kodingworks]: https://github.com/kodingworks
