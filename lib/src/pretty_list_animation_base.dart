@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:diffutil_dart/diffutil.dart' as diffutil;
 import 'package:pretty_list_animation/src/list_element_at_or_null.dart';
+import 'package:pretty_list_animation/src/loading.dart';
 
 /// Generic widget for rendering a list of items with optional infinite scroll and item animations.
 class PrettyListAnimation<T> extends StatefulWidget {
@@ -17,6 +18,16 @@ class PrettyListAnimation<T> extends StatefulWidget {
     this.padding,
     this.isInfinite = false,
     required this.onRefresh,
+    this.isTextIndicator = true,
+    this.textIndicatorLoading,
+    this.colorsIndicator,
+    this.backgroundColorIndicator,
+    this.pathBackgroundColorIndicator,
+    this.pauseIndicator,
+    this.strokeWidthIndicator,
+    this.indicatorType,
+    this.size = 40.0,
+    this.paddingIndicator,
   }) : super(key: key);
 
   /// The list of items to be displayed in the list.
@@ -51,6 +62,36 @@ class PrettyListAnimation<T> extends StatefulWidget {
   /// The builder function for rendering each item in the list.
   final Widget Function(BuildContext, T, int, Animation<double>) itemBuilder;
   final Future<void> Function() onRefresh;
+
+  /// This is to hide/show text indicator infinite loading.
+  final bool isTextIndicator;
+
+  /// To change text indicator loading.
+  final String? textIndicatorLoading;
+
+  /// To change colors indicator custom.
+  final List<Color>? colorsIndicator;
+
+  /// To change background color indicator loading infinite.
+  final Color? backgroundColorIndicator;
+
+  /// To change path color indicator.
+  final Color? pathBackgroundColorIndicator;
+
+  /// To pause indicator animation.
+  final bool? pauseIndicator;
+
+  /// To change stroke indicator.
+  final double? strokeWidthIndicator;
+
+  /// Change size indicator loading infinite.
+  final double? size;
+
+  /// To change padding indicator.
+  final double? paddingIndicator;
+
+  /// To custom indicator loading in infinite scroll.
+  final IndicatorType? indicatorType;
 
   @override
   State<PrettyListAnimation<T>> createState() => _PrettyListAnimationState<T>();
@@ -100,12 +141,29 @@ class _PrettyListAnimationState<T> extends State<PrettyListAnimation<T>> {
           /// If infinite scrolling is enabled, display a loading indicator.
           if (_isInfinite)
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(widget.paddingIndicator ?? 4),
               child: Column(
                 children: [
-                  CircularProgressIndicator(),
-                  SizedBox(height: 16),
-                  Text('Loading...'),
+                  if (widget.indicatorType == null)
+                    CircularProgressIndicator()
+                  else
+                    SizedBox(
+                      width: widget.size,
+                      height: widget.size,
+                      child: LoadingIndicator(
+                        indicatorType: widget.indicatorType ??
+                            IndicatorType.circleStrokeSpin,
+                        colors: widget.colorsIndicator,
+                        backgroundColor: widget.backgroundColorIndicator,
+                        pathBackgroundColor:
+                            widget.pathBackgroundColorIndicator,
+                        pause: widget.pauseIndicator ?? false,
+                        strokeWidth: widget.strokeWidthIndicator,
+                      ),
+                    ),
+                  if (widget.isTextIndicator) SizedBox(height: 16),
+                  if (widget.isTextIndicator)
+                    Text(widget.textIndicatorLoading ?? 'Loading...'),
                 ],
               ),
             ),
@@ -177,4 +235,42 @@ class _PrettyListAnimationState<T> extends State<PrettyListAnimation<T>> {
         if (item == null || !useAnimation) return Container();
         return widget.itemBuilder(context, item, from, animation);
       });
+}
+
+///34 different types animation enums.
+enum IndicatorType {
+  ballPulse,
+  ballGridPulse,
+  ballClipRotate,
+  squareSpin,
+  ballClipRotatePulse,
+  ballClipRotateMultiple,
+  ballPulseRise,
+  ballRotate,
+  cubeTransition,
+  ballZigZag,
+  ballZigZagDeflect,
+  ballTrianglePath,
+  ballTrianglePathColored,
+  ballTrianglePathColoredFilled,
+  ballScale,
+  lineScale,
+  lineScaleParty,
+  ballScaleMultiple,
+  ballPulseSync,
+  ballBeat,
+  lineScalePulseOut,
+  lineScalePulseOutRapid,
+  ballScaleRipple,
+  ballScaleRippleMultiple,
+  ballSpinFadeLoader,
+  lineSpinFadeLoader,
+  triangleSkewSpin,
+  pacman,
+  ballGridBeat,
+  semiCircleSpin,
+  ballRotateChase,
+  orbit,
+  audioEqualizer,
+  circleStrokeSpin,
 }
