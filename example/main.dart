@@ -87,6 +87,10 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         },
+        isInfinite: true,
+        isTextIndicator: false,
+        indicatorType: IndicatorType.pacman,
+        size: 30,
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: '1',
@@ -95,7 +99,7 @@ class _HomePageState extends State<HomePage> {
         },
         child: const Icon(Icons.add),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

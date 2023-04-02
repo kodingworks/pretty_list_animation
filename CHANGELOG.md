@@ -6,3 +6,6 @@
 
 ## 1.0.1+1
 * Update Example and repository
+
+## 1.0.2
+* Add custom indicator loading for infinite scroll
